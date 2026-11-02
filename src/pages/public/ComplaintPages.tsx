@@ -9,7 +9,7 @@ export function SubmitComplaintPage() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<any>(null)
 
-  const [category, setCategory] = useState('loan_dispute')
+  const [category, setCategory] = useState('repayment')
   const [subject, setSubject] = useState('')
   const [description, setDescription] = useState('')
   const [customerName, setCustomerName] = useState('')
@@ -20,7 +20,6 @@ export function SubmitComplaintPage() {
     e.preventDefault()
     setError(null)
 
-    // Frontend validation check to match the error banner intent
     if (!customerName || !customerName.trim()) {
       setError("Enter your name.")
       return
@@ -29,13 +28,15 @@ export function SubmitComplaintPage() {
     try {
       setSubmitting(true)
       const idempotencyKey = crypto.randomUUID()
+      
+      // FIX: Payload keys must match what the database function expects (contact_name, contact_phone, contact_email)
       const payload = {
         category,
         subject,
         description,
-        full_name: customerName.trim(),
-        phone,
-        email: email || undefined,
+        contact_name: customerName.trim(),
+        contact_phone: phone.trim(),
+        contact_email: email ? email.trim() : undefined,
       }
 
       const res = await submitComplaint('demo-mfb', idempotencyKey, payload)
@@ -107,16 +108,17 @@ export function SubmitComplaintPage() {
         <form onSubmit={handleSubmit} className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 shadow-xl shadow-slate-100 space-y-5" noValidate>
           {error && <Alert tone="error">{error}</Alert>}
 
+          {/* FIX: Use categories allowed by the DB constraint ('repayment', 'service', 'fees', 'fraud_concern', 'other') */}
           <SelectField 
             label="Complaint Category" 
             required
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="loan_dispute">Loan / Repayment Dispute</option>
-            <option value="kyc_delay">KYC / Verification Delay</option>
-            <option value="disbursement_issue">Disbursement Issue</option>
-            <option value="customer_service">Customer Service Feedback</option>
+            <option value="repayment">Loan / Repayment Dispute</option>
+            <option value="service">Customer Service Feedback</option>
+            <option value="fees">Fees & Charges</option>
+            <option value="fraud_concern">Fraud Concern</option>
             <option value="other">Other Inquiry</option>
           </SelectField>
 
