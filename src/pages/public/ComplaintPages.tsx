@@ -20,6 +20,12 @@ export function SubmitComplaintPage() {
     e.preventDefault()
     setError(null)
 
+    // Frontend validation check to match the error banner intent
+    if (!customerName || !customerName.trim()) {
+      setError("Enter your name.")
+      return
+    }
+
     try {
       setSubmitting(true)
       const idempotencyKey = crypto.randomUUID()
@@ -27,7 +33,7 @@ export function SubmitComplaintPage() {
         category,
         subject,
         description,
-        full_name: customerName,
+        full_name: customerName.trim(),
         phone,
         email: email || undefined,
       }
@@ -117,6 +123,7 @@ export function SubmitComplaintPage() {
           <TextField 
             label="Your Full Name" 
             required 
+            name="name"
             placeholder="e.g. Adebayo Ogunlesi"
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
