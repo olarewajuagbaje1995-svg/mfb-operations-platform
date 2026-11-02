@@ -39,9 +39,14 @@ export default function ComplaintsBoard() {
   const filteredComplaints = useMemo(() => {
     return complaints.filter(c => {
       const matchesStatus = filterStatus === 'all' || c.status === filterStatus
-      const matchesSearch = c.reference.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            c.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            c.subject.toLowerCase().includes(searchQuery.toLowerCase())
+      const fullName = (c.full_name || '').toLowerCase()
+      const reference = (c.reference || '').toLowerCase()
+      const subject = (c.subject || '').toLowerCase()
+      const query = searchQuery.toLowerCase()
+
+      const matchesSearch = reference.includes(query) || 
+                            fullName.includes(query) ||
+                            subject.includes(query)
       return matchesStatus && matchesSearch
     })
   }, [complaints, searchQuery, filterStatus])
@@ -115,7 +120,7 @@ export default function ComplaintsBoard() {
                     </span>
                   </div>
                   <h3 className="font-semibold text-ink truncate">{c.subject}</h3>
-                  <p className="text-sm text-muted mt-1 truncate">{c.full_name} · {c.phone}</p>
+                  <p className="text-sm text-muted mt-1 truncate">{c.full_name || 'Unknown Customer'} · {c.phone || 'N/A'}</p>
                 </li>
               ))}
             </ul>
@@ -145,11 +150,11 @@ export default function ComplaintsBoard() {
             <dl className="grid grid-cols-2 gap-4 text-sm bg-slate-50 p-3 rounded-md border border-line">
               <div className="col-span-2">
                 <dt className="text-muted text-xs uppercase">Customer Name</dt>
-                <dd className="font-medium text-ink">{selectedComplaint.full_name}</dd>
+                <dd className="font-medium text-ink">{selectedComplaint.full_name || 'Unknown Customer'}</dd>
               </div>
               <div>
                 <dt className="text-muted text-xs uppercase">Phone</dt>
-                <dd className="font-medium text-ink">{selectedComplaint.phone}</dd>
+                <dd className="font-medium text-ink">{selectedComplaint.phone || 'N/A'}</dd>
               </div>
               <div>
                 <dt className="text-muted text-xs uppercase">Submitted</dt>
