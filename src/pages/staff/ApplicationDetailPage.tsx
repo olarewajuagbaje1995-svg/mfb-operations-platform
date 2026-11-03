@@ -143,6 +143,12 @@ export default function ApplicationDetailPage() {
           {app.status === 'kyc_review' && (
             <Button onClick={() => navigate(`/staff/applications/${app.id}/assessment`)}>Proceed to Assessment →</Button>
           )}
+          {app.status === 'assessed' && (
+            <>
+              <Button variant="primary" onClick={() => setShowDecisionModal('approve')}>Approve Loan</Button>
+              <Button variant="danger" onClick={() => setShowDecisionModal('decline')}>Decline Loan</Button>
+            </>
+          )}
           {app.status === 'awaiting_approval' && (
             <>
               <Button variant="primary" onClick={() => setShowDecisionModal('approve')}>Approve Loan</Button>
