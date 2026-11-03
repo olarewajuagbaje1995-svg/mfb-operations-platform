@@ -38,17 +38,27 @@ export async function trackApplication(reference: string, code: string) {
   })
   
   if (error) throw new Error(error.message || 'Reference or tracking code not recognised.')
-  // Safely return single object whether RPC returns an array or object
   return Array.isArray(data) ? data[0] : data
 }
 
 // --- Complaints ---
 
-export async function submitComplaint(orgSlug: string, idempotencyKey: string, payload: ComplaintValues) {
+export async function submitComplaint(orgSlug: string, idempotencyKey: string, payload: any) {
+  // Safely map frontend/schema fields to what the Supabase RPC function (p_payload jsonb) expects
+  const rpcPayload = {
+    category: payload.category,
+    subject: payload.subject,
+    description: payload.description,
+    severity: payload.severity || 'medium',
+    contact_name: payload.contact_name || payload.full_name,
+    contact_phone: payload.contact_phone || payload.phone,
+    contact_email: payload.contact_email || payload.email,
+  }
+
   const { data, error } = await supabase.rpc('submit_public_complaint', {
     p_org_slug: orgSlug,
     p_idempotency_key: idempotencyKey,
-    p_payload: payload,
+    p_payload: rpcPayload,
   })
   
   if (error) throw new Error(error.message || 'Failed to submit complaint.')
