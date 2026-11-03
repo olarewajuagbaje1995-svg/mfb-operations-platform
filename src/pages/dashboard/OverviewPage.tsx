@@ -4,7 +4,7 @@ import { useAuth } from '@/features/auth/useAuth'
 import { getDashboardMetrics } from '@/services/staffApi'
 import { Spinner, Alert } from '@/components/feedback'
 import { formatNaira } from '@/utils/format'
-import { BarChart3, Clock, AlertCircle, FileText, ArrowRight } from 'lucide-react'
+import { CheckCircle2, Clock, AlertCircle, FileText, ArrowRight } from 'lucide-react'
 
 // Responsibility: The operational dashboard for staff members upon logging in.
 export default function OverviewPage() {
@@ -40,17 +40,19 @@ export default function OverviewPage() {
 
       {/* Top Metrics Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Real Active Loan Portfolio (Disbursed / Active Loans Only) */}
         <div className="rounded-lg border border-line bg-white p-6 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="rounded-md bg-brand-50 p-2 text-brand-600"><BarChart3 className="h-5 w-5" /></div>
-            <h3 className="text-sm font-medium text-muted">Active Pipeline Volume</h3>
+            <div className="rounded-md bg-emerald-50 p-2 text-emerald-600"><CheckCircle2 className="h-5 w-5" /></div>
+            <h3 className="text-sm font-medium text-muted">Active Loan Portfolio</h3>
           </div>
           <div className="mt-4">
-            <p className="text-3xl font-bold text-navy-900">{formatNaira(metrics?.activeVolume || 0)}</p>
-            <p className="mt-1 text-sm text-muted">Across {metrics?.activeCount || 0} active applications</p>
+            <p className="text-3xl font-bold text-navy-900">{formatNaira(metrics?.activeLoanVolume || metrics?.activeVolume || 0)}</p>
+            <p className="mt-1 text-sm text-muted">Across {metrics?.activeLoanCount || metrics?.activeCount || 0} disbursed active loans</p>
           </div>
         </div>
 
+        {/* Awaiting Approval */}
         <div className="rounded-lg border border-line bg-white p-6 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="rounded-md bg-amber-50 p-2 text-amber-600"><Clock className="h-5 w-5" /></div>
@@ -62,6 +64,7 @@ export default function OverviewPage() {
           </div>
         </div>
 
+        {/* Unresolved Complaints */}
         <div className="rounded-lg border border-line bg-white p-6 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="rounded-md bg-red-50 p-2 text-red-600"><AlertCircle className="h-5 w-5" /></div>
