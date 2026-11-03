@@ -32,7 +32,6 @@ export async function getApplicationDetails(appId: string, orgId: string) {
 
   if (error) throw new Error('Failed to load application details.')
   
-  // Explicitly filter documents by org_id if needed, or return data as-is
   return data
 }
 
@@ -159,46 +158,15 @@ export async function resolveComplaint(complaintId: string, orgId: string, resol
   if (error) throw new Error('Failed to resolve complaint.')
 }
 
-// --- Dashboard Metrics ---
+// --- Dashboard Metrics (Updated to use DB RPC function) ---
 
 export async function getDashboardMetrics(orgId: string) {
-  const { data: pipelineData, error: pipelineError } = await supabase
-    .from('loan_applications')
-    .select('status, requested_amount')
-    .eq('org_id', orgId)
-
-  if (pipelineError) throw new Error('Failed to fetch pipeline metrics.')
-
-  const { count: complaintsCount, error: complaintsError } = await supabase
-    .from('complaints')
-    .select('*', { count: 'exact', head: true })
-    .eq('org_id', orgId)
-    .eq('status', 'investigating')
-
-  if (complaintsError) throw new Error('Failed to fetch complaints metrics.')
-
-  let activeCount = 0
-  let activeVolume = 0
-  let pendingApprovalCount = 0
-
-  const CLOSED_STATUSES = ['approved', 'declined', 'disbursed', 'cancelled']
-
-  pipelineData?.forEach(app => {
-    if (!CLOSED_STATUSES.includes(app.status)) {
-      activeCount++
-      activeVolume += Number(app.requested_amount || 0)
-    }
-    if (app.status === 'awaiting_approval') {
-      pendingApprovalCount++
-    }
+  const { data, error } = await supabase.rpc('get_dashboard_metrics', {
+    p_org_id: orgId
   })
 
-  return {
-    activeCount,
-    activeVolume,
-    pendingApprovalCount,
-    unresolvedComplaints: complaintsCount || 0
-  }
+  if (error) throw new Error('Failed to fetch dashboard metrics.')
+  return data
 }
 
 // --- Admin Settings (Loan Products) ---
