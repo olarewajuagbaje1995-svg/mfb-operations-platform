@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/features/auth/useAuth'
 import { supabase } from '@/lib/supabase'
-import { Spinner, Alert } from '@/components/feedback'
+import { Alert } from '@/components/feedback'
 import { Button } from '@/components/Button'
 import { TextField, TextAreaField } from '@/components/Field'
 import { DataTable, type Column } from '@/components/DataTable'

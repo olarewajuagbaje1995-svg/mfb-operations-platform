@@ -51,16 +51,16 @@ export function SubmitComplaintPage() {
   if (success) {
     return (
       <div className="min-h-screen bg-[#F9FBFA] pb-24">
-        <div className="relative w-full bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-950 py-16 sm:py-20 text-white overflow-hidden shadow-xl mb-12">
+        <div className="relative w-full bg-gradient-to-r from-brand-deep via-brand-navy to-brand-blue py-16 sm:py-20 text-white overflow-hidden shadow-xl mb-12">
           <div className="max-w-4xl mx-auto px-4 text-center relative z-10 space-y-3">
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight">Support Ticket Logged</h1>
-            <p className="text-emerald-100/90 text-sm">Your complaint has been successfully registered with our operations desk.</p>
+            <p className="text-brand-pale/90 text-sm">Your complaint has been successfully registered with our operations desk.</p>
           </div>
         </div>
 
         <div className="mx-auto max-w-xl px-4">
-          <div className="rounded-3xl border border-emerald-200 bg-white p-8 sm:p-10 text-center shadow-xl space-y-6">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-700 text-white font-bold text-2xl shadow-md animate-bounce">
+          <div className="rounded-3xl border border-brand-border bg-white p-8 sm:p-10 text-center shadow-xl space-y-6">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-gold text-brand-deep font-bold text-2xl shadow-md animate-bounce">
               ✓
             </div>
             <div className="space-y-2">
@@ -68,12 +68,12 @@ export function SubmitComplaintPage() {
               <p className="text-xs text-slate-500">Save your reference code to check real-time resolution updates:</p>
             </div>
             
-            <div className="rounded-2xl bg-slate-50 p-6 border border-slate-200 font-mono text-xl font-bold text-emerald-800 shadow-inner">
+            <div className="rounded-2xl bg-slate-50 p-6 border border-slate-200 font-mono text-xl font-bold text-brand-gold shadow-inner">
               {success.reference}
             </div>
 
             <div className="pt-2">
-              <Button onClick={() => setSuccess(null)} className="bg-emerald-700 hover:bg-emerald-800 text-white py-3 px-8 rounded-2xl shadow-md">
+              <Button onClick={() => setSuccess(null)} className="bg-brand-gold text-brand-deep hover:bg-brand-gold-light py-3 px-8 rounded-2xl shadow-md">
                 Submit Another Ticket
               </Button>
             </div>
@@ -87,18 +87,18 @@ export function SubmitComplaintPage() {
     <div className="min-h-screen bg-[#F9FBFA] pb-24 space-y-12">
       
       {/* RADIANT HERO BANNER */}
-      <div className="relative w-full bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-950 py-16 sm:py-20 text-white overflow-hidden shadow-xl">
-        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-emerald-400/20 blur-3xl pointer-events-none animate-pulse" />
-        <div className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 w-[500px] h-[500px] rounded-full bg-teal-400/10 blur-3xl pointer-events-none" />
+      <div className="relative w-full bg-gradient-to-r from-brand-deep via-brand-navy to-brand-blue py-16 sm:py-20 text-white overflow-hidden shadow-xl">
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-brand-gold/20 blur-3xl pointer-events-none animate-pulse" />
+        <div className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 w-[500px] h-[500px] rounded-full bg-brand-pale/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-700/85 px-4 py-1.5 text-xs font-bold text-emerald-100 border border-emerald-500/40 shadow-md backdrop-blur-md">
-            <span>🛡️ Merit MFBn Help & Support</span>
+          <div className="inline-flex items-center gap-2 rounded-full bg-brand-navy/85 px-4 py-1.5 text-xs font-bold text-brand-pale border border-brand-pale/20 shadow-md backdrop-blur-md">
+            <span>🛡️ CLOBAN FINANCE Support Desk</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            Customer <span className="text-emerald-300">Support Desk</span>
+            Customer <span className="text-brand-gold">Support Desk</span>
           </h1>
-          <p className="text-sm sm:text-base text-emerald-100/90 max-w-xl mx-auto font-light">
+          <p className="text-sm sm:text-base text-brand-pale/90 max-w-xl mx-auto font-light">
             Have a dispute, inquiry, or operational feedback? Raise a support ticket and our operations team will investigate promptly.
           </p>
         </div>
@@ -165,7 +165,7 @@ export function SubmitComplaintPage() {
           />
 
           <div className="pt-4 flex justify-end">
-            <Button type="submit" loading={submitting} className="bg-emerald-700 hover:bg-emerald-800 text-white px-8 py-3.5 rounded-2xl shadow-lg shadow-emerald-900/10 transition-transform hover:scale-105">
+            <Button type="submit" loading={submitting} className="bg-brand-gold text-brand-deep hover:bg-brand-gold-light px-8 py-3.5 rounded-2xl shadow-lg transition-transform hover:scale-105">
               Submit Support Ticket →
             </Button>
           </div>
@@ -200,18 +200,18 @@ export function TrackComplaintPage() {
     <div className="min-h-screen bg-[#F9FBFA] pb-24 space-y-12">
       
       {/* RADIANT HERO BANNER */}
-      <div className="relative w-full bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-950 py-16 sm:py-20 text-white overflow-hidden shadow-xl">
-        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-emerald-400/20 blur-3xl pointer-events-none animate-pulse" />
-        <div className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 w-[500px] h-[500px] rounded-full bg-teal-400/10 blur-3xl pointer-events-none" />
+      <div className="relative w-full bg-gradient-to-r from-brand-deep via-brand-navy to-brand-blue py-16 sm:py-20 text-white overflow-hidden shadow-xl">
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-brand-gold/20 blur-3xl pointer-events-none animate-pulse" />
+        <div className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 w-[500px] h-[500px] rounded-full bg-brand-pale/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-700/85 px-4 py-1.5 text-xs font-bold text-emerald-100 border border-emerald-500/40 shadow-md backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 rounded-full bg-brand-navy/85 px-4 py-1.5 text-xs font-bold text-brand-pale border border-brand-pale/20 shadow-md backdrop-blur-md">
             <span>🔍 Support Ticket Lookup</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            Track Support <span className="text-emerald-300">Ticket</span>
+            Track Support <span className="text-brand-gold">Ticket</span>
           </h1>
-          <p className="text-sm sm:text-base text-emerald-100/90 max-w-xl mx-auto font-light">
+          <p className="text-sm sm:text-base text-brand-pale/90 max-w-xl mx-auto font-light">
             Enter your ticket reference code and verification PIN to check investigator notes and resolution status.
           </p>
         </div>
@@ -225,7 +225,7 @@ export function TrackComplaintPage() {
             <TextField label="Tracking Code" required placeholder="e.g. A1B2C" value={code} onChange={(e) => setCode(e.target.value)} />
           </div>
           <div className="flex justify-end pt-2">
-            <Button type="submit" loading={loading} className="bg-emerald-700 hover:bg-emerald-800 text-white px-8 py-3.5 rounded-2xl shadow-lg shadow-emerald-900/10 transition-transform hover:scale-105">
+            <Button type="submit" loading={loading} className="bg-brand-gold text-brand-deep hover:bg-brand-gold-light px-8 py-3.5 rounded-2xl shadow-lg transition-transform hover:scale-105">
               Lookup Ticket →
             </Button>
           </div>
@@ -235,14 +235,14 @@ export function TrackComplaintPage() {
           <div className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 shadow-xl shadow-slate-100 space-y-6 animate-fade-in">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <h2 className="text-xl font-black text-navy-900">{ticket.subject}</h2>
-              <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-800 border border-emerald-200 uppercase">
+              <span className="rounded-full bg-brand-pale px-3 py-1 text-xs font-bold text-brand-gold border border-brand-border uppercase">
                 {ticket.status}
               </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{ticket.description}</p>
             {ticket.resolution_notes && (
-              <div className="rounded-2xl bg-emerald-50 p-5 border border-emerald-200 text-xs text-emerald-950 space-y-1">
-                <p className="font-bold uppercase tracking-wider text-emerald-800 text-[10px]">Official Resolution Update</p>
+              <div className="rounded-2xl bg-brand-pale p-5 border border-brand-border text-xs text-brand-navy space-y-1">
+                <p className="font-bold uppercase tracking-wider text-brand-gold text-[10px]">Official Resolution Update</p>
                 <p className="leading-relaxed mt-1">{ticket.resolution_notes}</p>
               </div>
             )}

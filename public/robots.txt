@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://clobanfinance.com/sitemap.xml

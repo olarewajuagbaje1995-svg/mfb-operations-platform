@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase'
-import type { ApplicationValues, ComplaintValues } from '@/schemas/application'
+import type { ApplicationValues } from '@/schemas/application'
 
 export async function getPublicOrg(slug: string) {
   const { data, error } = await supabase.rpc('get_public_org', { p_slug: slug })

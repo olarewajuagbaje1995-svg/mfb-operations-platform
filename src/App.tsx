@@ -5,7 +5,15 @@ import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 
 // Public Pages
 import HomePage from '@/pages/public/HomePage'
+import AboutPage from '@/pages/public/AboutPage'
+import Management from '@/pages/public/Management'
 import ProductsPage from '@/pages/public/ProductsPage'
+import ProductDetailPage from '@/pages/public/products/ProductDetailPage'
+import HowItWorksPage from '@/pages/public/HowItWorksPage'
+import EligibilityPage from '@/pages/public/EligibilityPage'
+import FAQPage from '@/pages/public/FAQPage'
+import ContactPage from '@/pages/public/ContactPage'
+import NotFoundPage from '@/pages/public/NotFoundPage'
 import ApplyPage from '@/pages/public/ApplyPage'
 import TrackPage from '@/pages/public/TrackPage'
 import { SubmitComplaintPage, TrackComplaintPage } from '@/pages/public/ComplaintPages'
@@ -21,23 +29,33 @@ import DocumentReview from '@/pages/staff/DocumentReview'
 import ComplaintsBoard from '@/pages/staff/ComplaintsBoard'
 import CreditAssessment from '@/pages/staff/CreditAssessment'
 import SettingsPage from '@/pages/staff/SettingsPage'
+import LoanTypesPage from '@/pages/staff/LoanTypesPage'
 import AuditLogsPage from '@/pages/staff/AuditLogsPage'
+import ManagementTeamPage from '@/pages/staff/ManagementTeamPage'
 
-// Responsibility: The main route table for the application.
+// Responsibility: the main route table for the application.
+// Staff /staff/* routes and their logic are preserved unchanged.
 export default function App() {
   return (
     <Routes>
-      {/* PUBLIC CUSTOMER WEBSITE */}
+      {/* PUBLIC CUSTOMER WEBSITE — CLOBAN FINANCE */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/management" element={<Management />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:slug" element={<ProductDetailPage />} />
+        <Route path="/how-it-works" element={<HowItWorksPage />} />
+        <Route path="/eligibility" element={<EligibilityPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/apply" element={<ApplyPage />} />
         <Route path="/track" element={<TrackPage />} />
-        
+
         {/* Complaints Portal Routes */}
-        <Route path="/complaints" element={<SubmitComplaintPage />} /> 
-        <Route path="/complaints/track" element={<TrackComplaintPage />} /> 
+        <Route path="/complaints" element={<SubmitComplaintPage />} />
+        <Route path="/complaints/track" element={<TrackComplaintPage />} />
       </Route>
 
       {/* SECURE STAFF PORTAL */}
@@ -50,21 +68,14 @@ export default function App() {
           <Route path="/staff/applications/:id/assessment" element={<CreditAssessment />} />
           <Route path="/staff/complaints" element={<ComplaintsBoard />} />
           <Route path="/staff/settings" element={<SettingsPage />} />
+          <Route path="/staff/management" element={<ManagementTeamPage />} />
+          <Route path="/staff/loan-types" element={<LoanTypesPage />} />
           <Route path="/staff/audit" element={<AuditLogsPage />} />
         </Route>
       </Route>
 
       {/* 404 FALLBACK */}
-      <Route 
-        path="*" 
-        element={
-          <div className="flex min-h-[60vh] flex-col items-center justify-center p-10 text-center">
-            <h1 className="text-3xl font-bold text-navy-900">404</h1>
-            <p className="mt-2 text-lg font-medium text-slate-700">Page not found</p>
-            <p className="mt-2 text-sm text-muted">The page you are looking for does not exist or has been moved.</p>
-          </div>
-        } 
-      />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }
