@@ -74,4 +74,20 @@ export const STAFF_NAV: NavItem[] = [
     end: false,
     roles: ['mfb_admin', 'auditor'],
   },
+  {
+    to: '/staff/profile',
+    label: 'Profile & Staff',
+    end: false,
+    roles: [
+      'mfb_admin',
+      'branch_manager',
+      'loan_officer',
+      'loan_approver',
+      'kyc_reviewer',
+      'reconciliation_officer',
+      'compliance_officer',
+      'support_officer',
+      'auditor',
+    ],
+  },
 ]

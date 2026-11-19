@@ -16,5 +16,5 @@ export const env = {
     'VITE_SUPABASE_PUBLISHABLE_KEY',
     import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
   ),
-  appName: (import.meta.env.VITE_APP_NAME as string | undefined) ?? 'Demo MFB',
+  appName: (import.meta.env.VITE_APP_NAME as string | undefined) ?? 'CLOBANS FINANCE',
 }

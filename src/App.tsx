@@ -32,6 +32,7 @@ import SettingsPage from '@/pages/staff/SettingsPage'
 import LoanTypesPage from '@/pages/staff/LoanTypesPage'
 import AuditLogsPage from '@/pages/staff/AuditLogsPage'
 import ManagementTeamPage from '@/pages/staff/ManagementTeamPage'
+import ProfilePage from '@/pages/staff/ProfilePage'
 
 // Responsibility: the main route table for the application.
 // Staff /staff/* routes and their logic are preserved unchanged.
@@ -71,6 +72,7 @@ export default function App() {
           <Route path="/staff/management" element={<ManagementTeamPage />} />
           <Route path="/staff/loan-types" element={<LoanTypesPage />} />
           <Route path="/staff/audit" element={<AuditLogsPage />} />
+          <Route path="/staff/profile" element={<ProfilePage />} />
         </Route>
       </Route>
 

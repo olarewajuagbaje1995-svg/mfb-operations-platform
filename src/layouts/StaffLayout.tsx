@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { LogOut } from 'lucide-react'
 import { Button } from '@/components/Button'
+import BrandLogo from '@/components/brand/BrandLogo'
 import { STAFF_NAV } from '@/app/navigation'
 import { useAuth } from '@/features/auth/useAuth'
 import { env } from '@/lib/env'
@@ -13,8 +14,11 @@ export function StaffLayout() {
     <div className="flex min-h-full flex-col md:flex-row">
       <aside className="bg-navy-950 text-white md:w-60 md:shrink-0">
         <div className="px-4 py-4">
-          <p className="text-lg font-semibold">{env.appName}</p>
-          <p className="text-xs text-slate-300">{auth.activeOrg?.orgName}</p>
+          <div className="flex items-center gap-2">
+            <BrandLogo variant="white" height={32} />
+            <p className="text-lg font-semibold">{env.appName}</p>
+          </div>
+          <p className="text-xs text-slate-300">Operations Portal</p>
         </div>
         <nav aria-label="Staff" className="flex gap-1 overflow-x-auto px-2 pb-2 md:flex-col md:overflow-visible">
           {items.map((i) => (
@@ -33,7 +37,9 @@ export function StaffLayout() {
         <header className="flex items-center justify-between border-b border-line bg-white px-4 py-2">
           <span className="text-xs text-amber-800">Demo environment · simulated money only</span>
           <div className="flex items-center gap-3 text-sm">
-            <span className="hidden text-muted sm:inline">{auth.user?.email}</span>
+            <NavLink to="/staff/profile" className="hidden text-muted sm:inline hover:underline">
+              {auth.user?.email}
+            </NavLink>
             <Button variant="secondary" onClick={() => void auth.signOut()}>
               <LogOut className="h-4 w-4" aria-hidden="true" /> Sign out
             </Button>
