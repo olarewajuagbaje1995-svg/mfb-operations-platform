@@ -1,10 +1,8 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { LogOut } from 'lucide-react'
 import { Button } from '@/components/Button'
-import BrandLogo from '@/components/brand/BrandLogo'
 import { STAFF_NAV } from '@/app/navigation'
 import { useAuth } from '@/features/auth/useAuth'
-import { env } from '@/lib/env'
 
 // Responsibility: sidebar + top bar shell for the staff portal. Links are filtered by role for convenience only.
 export function StaffLayout() {
@@ -13,12 +11,9 @@ export function StaffLayout() {
   return (
     <div className="flex min-h-full flex-col md:flex-row">
       <aside className="bg-navy-950 text-white md:w-60 md:shrink-0">
-        <div className="px-4 py-4">
-          <div className="flex items-center gap-2">
-            <BrandLogo variant="white" height={32} />
-            <p className="text-lg font-semibold">{env.appName}</p>
-          </div>
-          <p className="text-xs text-slate-300">Operations Portal</p>
+        <div className="flex flex-col items-start gap-1.5 px-4 pt-5 pb-4">
+          <img src="/brand/image.png" alt="CLOBANS FINANCE" className="h-9 w-auto max-w-[180px] object-contain" />
+          <p className="text-xs font-medium tracking-wide text-slate-300/80">Operations Portal</p>
         </div>
         <nav aria-label="Staff" className="flex gap-1 overflow-x-auto px-2 pb-2 md:flex-col md:overflow-visible">
           {items.map((i) => (
@@ -35,7 +30,6 @@ export function StaffLayout() {
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-line bg-white px-4 py-2">
-          <span className="text-xs text-amber-800">Demo environment · simulated money only</span>
           <div className="flex items-center gap-3 text-sm">
             <NavLink to="/staff/profile" className="hidden text-muted sm:inline hover:underline">
               {auth.user?.email}
