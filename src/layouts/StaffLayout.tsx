@@ -12,7 +12,7 @@ export function StaffLayout() {
     <div className="flex min-h-full flex-col md:flex-row">
       <aside className="bg-navy-950 text-white md:w-60 md:shrink-0">
         <div className="flex flex-col items-start gap-1.5 px-4 pt-5 pb-4">
-          <img src="/brand/image.png" alt="CLOBANS FINANCE" className="h-9 w-auto max-w-[180px] object-contain" />
+          <img src="/brand/image.png" alt="CLOBANS FINANCE" className="h-10 w-auto max-w-full object-contain block" />
           <p className="text-xs font-medium tracking-wide text-slate-300/80">Operations Portal</p>
         </div>
         <nav aria-label="Staff" className="flex gap-1 overflow-x-auto px-2 pb-2 md:flex-col md:overflow-visible">

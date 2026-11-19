@@ -40,7 +40,7 @@ export default function OverviewPage() {
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <Activity className="h-4 w-4 animate-pulse" /> Live Operational Command
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight">Welcome back, {user?.email}</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-white">Welcome back, {user?.email}</h1>
           <p className="mt-1 text-sm text-slate-300">Here is your real-time performance summary and active portfolio metrics for <span className="font-semibold text-white">{activeOrg?.orgName}</span>.</p>
         </div>
         <div className="flex items-center gap-3">
