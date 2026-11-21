@@ -144,29 +144,72 @@ export async function getComplaints(orgId: string) {
   return data
 }
 
-export async function resolveComplaint(complaintId: string, orgId: string, resolutionNotes: string) {
-  const { error } = await supabase
+export async function markComplaintInvestigating(complaintId: string) {
+  const now = new Date().toISOString()
+  const { data, error } = await supabase
     .from('complaints')
-    .update({ 
-      status: 'resolved', 
-      resolution_notes: resolutionNotes,
-      resolved_at: new Date().toISOString()
+    .update({
+      status: 'investigating',
+      updated_at: now,
     })
     .eq('id', complaintId)
-    .eq('org_id', orgId)
+    .select()
+    .single()
 
-  if (error) throw new Error('Failed to resolve complaint.')
+  if (error) throw new Error(error.message || 'Failed to mark complaint as investigating.')
+  if (!data) throw new Error('Failed to mark complaint as investigating. The update returned no row (RLS may be blocking it).')
+  return data
+}
+
+export async function resolveComplaint(complaintId: string, resolutionNotes: string) {
+  const now = new Date().toISOString()
+  const { data: userData } = await supabase.auth.getUser()
+  const { data, error } = await supabase
+    .from('complaints')
+    .update({
+      status: 'resolved',
+      resolution: resolutionNotes.trim() || 'Resolved by staff',
+      resolved_at: now,
+      resolved_by: userData?.user?.id ?? null,
+      updated_at: now,
+    })
+    .eq('id', complaintId)
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message || 'Failed to resolve complaint.')
+  if (!data) throw new Error('Failed to resolve complaint. The update returned no row (RLS may be blocking it).')
+  return data
 }
 
 // --- Dashboard Metrics (Updated to use DB RPC function) ---
 
 export async function getDashboardMetrics(orgId: string) {
-  const { data, error } = await supabase.rpc('get_dashboard_metrics', {
+  const { data: rpcData, error } = await supabase.rpc('get_dashboard_metrics', {
     p_org_id: orgId
   })
 
   if (error) throw new Error('Failed to fetch dashboard metrics.')
-  return data
+  const metrics = (rpcData ?? {}) as Record<string, any>
+
+  // Count unresolved complaints directly so "resolved" and "closed" tickets
+  // are always excluded from the KPI, whatever the RPC returns. The direct
+  // query is non-fatal: if table access is unavailable we fall back to the RPC value.
+  let unresolvedComplaints = metrics.unresolvedComplaints ?? 0
+  try {
+    const { data: unresolved, error: countError, count } = await supabase
+      .from('complaints')
+      .select('*', { count: 'exact', head: true })
+      .eq('org_id', orgId)
+      .not('status', 'in', '("resolved","closed")')
+    if (!countError && typeof count === 'number') {
+      unresolvedComplaints = count
+    }
+  } catch {
+    // Fall back to the RPC's unresolvedComplaints value.
+  }
+
+  return { ...metrics, unresolvedComplaints }
 }
 
 // --- Admin Settings (Loan Products) ---
