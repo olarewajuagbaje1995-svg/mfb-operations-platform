@@ -21,6 +21,7 @@ import { Alert, Spinner } from '@/components/feedback'
 import { SEO } from '@/components/seo/SEO'
 import { formatNaira } from '@/utils/format'
 import { runOCR, extractOcrFields } from '@/utils/ocr'
+import { calculateLoan } from '@/utils/loanCalculator'
 
 const APPLY_HERO_SLIDES = [
   {
@@ -110,6 +111,21 @@ export default function ApplyPage() {
   }, [])
 
   const selectedProductData = products.find((p) => p.id === productId)
+
+  function interestMethodLabel(method: string | undefined) {
+    return method === 'reducing_balance' ? 'Reducing Balance' : 'Flat Rate'
+  }
+
+  const repaymentCalculation =
+    selectedProductData && Number(requestedAmount) > 0 && Number(requestedTerm) > 0
+      ? calculateLoan(
+          Number(requestedAmount),
+          selectedProductData.annual_interest_pct,
+          Number(requestedTerm),
+          selectedProductData.interest_method,
+          selectedProductData.fee_pct,
+        )
+      : null
 
   function changeStep(targetStep: number) {
     setAnimating(true)
@@ -750,6 +766,79 @@ export default function ApplyPage() {
                     </div>
                   )}
 
+                  {repaymentCalculation && (
+                    <div className="mt-4 rounded-2xl border border-[#DCE5F1] bg-white p-4 sm:p-6 shadow-sm">
+                      <div className="mb-3">
+                        <div>
+                          <h3 className="text-sm font-extrabold text-[#061E45]">
+                            Estimated Repayment Breakdown
+                          </h3>
+                          <p className="text-[11px] text-[#667085]">
+                            Live estimate from the selected product's rate,
+                            method, and processing fee.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        <div className="rounded-xl border border-[#DCE5F1] bg-[#F1F6FE]/60 p-3">
+                          <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                            Principal
+                          </span>
+                          <p className="mt-0.5 font-mono text-sm font-extrabold text-[#061E45]">
+                            {formatNaira(repaymentCalculation.principal)}
+                          </p>
+                        </div>
+                        <div className="rounded-xl border border-[#DCE5F1] bg-[#F1F6FE]/60 p-3">
+                          <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                            Interest Rate &amp; Method
+                          </span>
+                          <p className="mt-0.5 font-mono text-sm font-extrabold text-[#061E45]">
+                            {selectedProductData.annual_interest_pct}% p.a. (
+                            {interestMethodLabel(selectedProductData.interest_method)})
+                          </p>
+                        </div>
+                        <div className="rounded-xl border border-[#DCE5F1] bg-[#F1F6FE]/60 p-3">
+                          <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                            Estimated Interest
+                          </span>
+                          <p className="mt-0.5 font-mono text-sm font-extrabold text-[#061E45]">
+                            {formatNaira(repaymentCalculation.totalInterest)}
+                          </p>
+                        </div>
+                        {repaymentCalculation.processingFee > 0 && (
+                          <div className="rounded-xl border border-[#DCE5F1] bg-[#F1F6FE]/60 p-3">
+                            <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                              Processing Fee
+                            </span>
+                            <p className="mt-0.5 font-mono text-sm font-extrabold text-[#061E45]">
+                              {formatNaira(repaymentCalculation.processingFee)}
+                            </p>
+                          </div>
+                        )}
+                        <div className="rounded-xl border border-[#DCE5F1] bg-[#F1F6FE]/60 p-3 sm:col-span-2">
+                          <div className="flex items-baseline justify-between text-sm">
+                            <span className="font-extrabold uppercase tracking-wider text-[#667085]">
+                              Estimated Monthly Repayment
+                            </span>
+                            <p className="font-mono font-extrabold text-[#061E45]">
+                              {formatNaira(repaymentCalculation.monthlyRepayment)}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="rounded-xl border-2 border-[#0B2F5B] bg-[#061E45] p-3 sm:col-span-2">
+                          <div className="flex items-baseline justify-between text-sm">
+                            <span className="font-extrabold uppercase tracking-wider text-[#FFD036]">
+                              Total Repayment
+                            </span>
+                            <p className="font-mono font-extrabold text-[#FFD036]">
+                              {formatNaira(repaymentCalculation.totalRepayment)}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <TextAreaField
                     label="Purpose of Loan"
                     required
@@ -876,6 +965,52 @@ export default function ApplyPage() {
                         </p>
                       </div>
                     </div>
+
+                    {repaymentCalculation && (
+                      <div className="grid grid-cols-1 gap-4 border-b border-[#DCE5F1] pb-3 sm:grid-cols-3">
+                        <div>
+                          <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                            Repayment Term
+                          </span>
+                          <p className="mt-0.5 text-sm font-extrabold text-[#061E45]">
+                            {requestedTerm} months
+                          </p>
+                        </div>
+                        <div>
+                          <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                            Interest Rate &amp; Method
+                          </span>
+                          <p className="mt-0.5 text-sm font-extrabold text-[#061E45]">
+                            {selectedProductData.annual_interest_pct}% p.a. (
+                            {interestMethodLabel(selectedProductData.interest_method)})
+                          </p>
+                        </div>
+                        <div>
+                          <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                            Estimated Interest
+                          </span>
+                          <p className="mt-0.5 font-mono text-sm font-extrabold text-[#061E45]">
+                            {formatNaira(repaymentCalculation.totalInterest)}
+                          </p>
+                        </div>
+                        <div>
+                          <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                            Estimated Monthly Repayment
+                          </span>
+                          <p className="mt-0.5 font-mono text-sm font-extrabold text-[#061E45]">
+                            {formatNaira(repaymentCalculation.monthlyRepayment)}
+                          </p>
+                        </div>
+                        <div>
+                          <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">
+                            Total Repayment
+                          </span>
+                          <p className="mt-0.5 font-mono text-sm font-extrabold text-[#061E45]">
+                            {formatNaira(repaymentCalculation.totalRepayment)}
+                          </p>
+                        </div>
+                      </div>
+                    )}
 
                     <div>
                       <span className="block text-[10px] font-extrabold uppercase tracking-wider text-[#667085]">

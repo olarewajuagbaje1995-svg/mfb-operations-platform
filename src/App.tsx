@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { PublicLayout } from '@/layouts/PublicLayout'
 import { StaffLayout } from '@/layouts/StaffLayout'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
@@ -29,7 +29,6 @@ import DocumentReview from '@/pages/staff/DocumentReview'
 import ComplaintsBoard from '@/pages/staff/ComplaintsBoard'
 import CreditAssessment from '@/pages/staff/CreditAssessment'
 import SettingsPage from '@/pages/staff/SettingsPage'
-import LoanTypesPage from '@/pages/staff/LoanTypesPage'
 import AuditLogsPage from '@/pages/staff/AuditLogsPage'
 import ManagementTeamPage from '@/pages/staff/ManagementTeamPage'
 import ProfilePage from '@/pages/staff/ProfilePage'
@@ -69,8 +68,8 @@ export default function App() {
           <Route path="/staff/applications/:id/assessment" element={<CreditAssessment />} />
           <Route path="/staff/complaints" element={<ComplaintsBoard />} />
           <Route path="/staff/settings" element={<SettingsPage />} />
+          <Route path="/staff/loan-types" element={<Navigate to="/staff/settings" replace />} />
           <Route path="/staff/management" element={<ManagementTeamPage />} />
-          <Route path="/staff/loan-types" element={<LoanTypesPage />} />
           <Route path="/staff/audit" element={<AuditLogsPage />} />
           <Route path="/staff/profile" element={<ProfilePage />} />
         </Route>

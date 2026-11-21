@@ -256,8 +256,8 @@ export default function SettingsPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-2xl font-bold text-navy-900">System Settings</h1>
-        <p className="mt-1 text-sm text-muted">Manage loan product categories, configure loan offerings, and organization preferences.</p>
+        <h1 className="text-2xl font-bold text-navy-900">Loan Products &amp; Rates</h1>
+        <p className="mt-1 text-sm text-muted">Manage loan categories, products, interest rates, and repayment terms.</p>
       </div>
 
       {/* SECTION A: LOAN PRODUCT TYPES */}

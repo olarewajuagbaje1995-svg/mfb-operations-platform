@@ -39,12 +39,6 @@ export const STAFF_NAV: NavItem[] = [
     ],
   },
   {
-    to: '/staff/loan-types',
-    label: 'Loan Types',
-    end: false,
-    roles: ['mfb_admin', 'auditor'],
-  },
-  {
     to: '/staff/complaints',
     label: 'Complaints',
     end: false,
@@ -70,7 +64,7 @@ export const STAFF_NAV: NavItem[] = [
   },
   {
     to: '/staff/settings',
-    label: 'Settings',
+    label: 'Loan Products & Rates',
     end: false,
     roles: ['mfb_admin', 'auditor'],
   },
