@@ -23,6 +23,7 @@ import LoginPage from '@/pages/auth/LoginPage'
 
 // Staff Pages
 import OverviewPage from '@/pages/dashboard/OverviewPage'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import PipelinePage from '@/pages/staff/PipelinePage'
 import ApplicationDetailPage from '@/pages/staff/ApplicationDetailPage'
 import DocumentReview from '@/pages/staff/DocumentReview'
@@ -32,6 +33,12 @@ import SettingsPage from '@/pages/staff/SettingsPage'
 import AuditLogsPage from '@/pages/staff/AuditLogsPage'
 import ManagementTeamPage from '@/pages/staff/ManagementTeamPage'
 import ProfilePage from '@/pages/staff/ProfilePage'
+
+// Keeps the staff portal out of search indexes without modifying StaffLayout.tsx.
+function StaffShell() {
+  usePageSeo({ noIndex: true })
+  return <StaffLayout />
+}
 
 // Responsibility: the main route table for the application.
 // Staff /staff/* routes and their logic are preserved unchanged.
@@ -60,7 +67,7 @@ export default function App() {
 
       {/* SECURE STAFF PORTAL */}
       <Route element={<ProtectedRoute />}>
-        <Route element={<StaffLayout />}>
+        <Route element={<StaffShell />}>
           <Route path="/staff" element={<OverviewPage />} />
           <Route path="/staff/pipeline" element={<PipelinePage />} />
           <Route path="/staff/applications/:id" element={<ApplicationDetailPage />} />

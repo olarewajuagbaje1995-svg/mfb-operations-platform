@@ -10,6 +10,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import { brand } from '@/config/brand'
 import { ContactForm } from '@/components/ui/ContactForm'
 
@@ -32,6 +33,12 @@ export default function ContactPage() {
   const [searchParams] = useSearchParams()
   const opened = searchParams.get('opened') === 'true'
   const [currentSlide, setCurrentSlide] = useState(0)
+
+  usePageSeo({
+    title: 'Contact CLOBANS FINANCE',
+    description:
+      'Get in touch with CLOBANS FINANCE — phone, email, or visit our office in Kuje, Abuja.',
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {

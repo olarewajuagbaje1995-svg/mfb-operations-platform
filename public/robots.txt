@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://clobanfinance.com/sitemap.xml
+Disallow: /staff/
+Disallow: /login
+
+Sitemap: https://mfb-operations-platform-e6od.vercel.app/sitemap.xml

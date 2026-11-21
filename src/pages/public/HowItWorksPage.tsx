@@ -11,6 +11,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import { brand } from '@/config/brand'
 
 const HOW_IT_WORKS_SLIDES = [
@@ -82,6 +83,12 @@ export default function HowItWorksPage() {
     }, 4500)
     return () => clearInterval(timer)
   }, [])
+
+  usePageSeo({
+    title: 'How It Works | CLOBANS FINANCE',
+    description:
+      'Understand the CLOBANS FINANCE application journey — from choosing a product to receiving a financing decision.',
+  })
 
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-white font-sans text-[#101828]">

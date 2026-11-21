@@ -10,6 +10,7 @@ import {
   Users,
 } from 'lucide-react'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import { brand } from '@/config/brand'
 import { supabase } from '@/lib/supabase'
 import { Spinner } from '@/components/feedback'
@@ -203,6 +204,12 @@ export default function Management() {
     }, 4500)
     return () => clearInterval(timer)
   }, [])
+
+  usePageSeo({
+    title: 'Management & Leadership | CLOBANS FINANCE',
+    description:
+      'Meet the leadership team behind CLOBANS FINANCE — responsible financing starts with responsible leadership.',
+  })
 
   useEffect(() => {
     async function fetchManagement() {

@@ -12,6 +12,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 
 const ELIGIBILITY_SLIDES = [
   {
@@ -91,6 +92,12 @@ export default function EligibilityPage() {
     }, 4500)
     return () => clearInterval(timer)
   }, [])
+
+  usePageSeo({
+    title: 'Eligibility | CLOBANS FINANCE',
+    description:
+      'Check the eligibility requirements for CLOBANS FINANCE SME financing products before you apply.',
+  })
 
   const toggleChecklistItem = (item: string) => {
     setCheckedItems((prev) =>

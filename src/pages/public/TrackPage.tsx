@@ -14,6 +14,7 @@ import { TextField } from '@/components/Field'
 import { Alert } from '@/components/feedback'
 import { StatusBadge } from '@/components/StatusBadge'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import { formatDate, formatNaira } from '@/utils/format'
 import type { ApplicationStatus } from '@/types/status'
 
@@ -41,6 +42,12 @@ export default function TrackPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [appData, setAppData] = useState<any>(null)
+
+  usePageSeo({
+    title: 'Track Application Status | CLOBANS FINANCE',
+    description:
+      'Track your CLOBANS FINANCE loan application with your reference and tracking code.',
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {

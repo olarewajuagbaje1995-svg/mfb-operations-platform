@@ -5,6 +5,7 @@ import { getActiveProducts, getPublicOrg } from '@/services/publicApi'
 import { supabase } from '@/lib/supabase'
 import { Spinner, Alert, EmptyState } from '@/components/feedback'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import { formatNaira } from '@/utils/format'
 
 const PRODUCTS_HERO_SLIDES = [
@@ -30,6 +31,12 @@ export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All Products')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentSlide, setCurrentSlide] = useState(0)
+
+  usePageSeo({
+    title: 'Our Products | CLOBANS FINANCE',
+    description:
+      'SME business loans, asset-backed finance, equipment finance and working capital finance from CLOBANS FINANCE.',
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {

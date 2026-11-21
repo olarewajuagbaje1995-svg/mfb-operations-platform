@@ -8,6 +8,7 @@ import {
   Users,
 } from 'lucide-react'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import { brand } from '@/config/brand'
 import { supabase } from '@/lib/supabase'
 import { TrustIndicator, TRUST_INDICATORS } from '@/components/ui/TrustIndicator'
@@ -90,6 +91,12 @@ export default function AboutPage() {
     }, 4500)
     return () => clearInterval(timer)
   }, [])
+
+  usePageSeo({
+    title: 'About CLOBANS FINANCE | Responsible SME Financing in Nigeria',
+    description:
+      'CLOBANS FINANCE provides accessible, responsible and transparent financing solutions for Nigerian businesses, entrepreneurs and growing enterprises.',
+  })
 
   useEffect(() => {
     async function loadAboutContent() {

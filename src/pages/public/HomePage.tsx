@@ -14,6 +14,7 @@ import {
   TrendingUp,
 } from 'lucide-react'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 
 const HERO_SLIDES = [
   {
@@ -103,6 +104,12 @@ export default function HomePage() {
     }, 4500)
     return () => clearInterval(timer)
   }, [])
+
+  usePageSeo({
+    title: 'CLOBANS FINANCE | Fast, Transparent Microfinance & Loan Solutions',
+    description:
+      'Apply for fast, transparent salary advances, personal loans, and business financing with CLOBANS FINANCE. Instant repayment estimates and secure online applications.',
+  })
 
   return (
     <main className="w-full overflow-x-hidden bg-white font-sans text-[#101828]">

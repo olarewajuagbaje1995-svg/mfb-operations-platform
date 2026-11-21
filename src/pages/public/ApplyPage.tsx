@@ -19,6 +19,7 @@ import { Button } from '@/components/Button'
 import { TextField, SelectField, TextAreaField } from '@/components/Field'
 import { Alert, Spinner } from '@/components/feedback'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import { formatNaira } from '@/utils/format'
 import { runOCR, extractOcrFields } from '@/utils/ocr'
 import { calculateLoan } from '@/utils/loanCalculator'
@@ -82,6 +83,12 @@ export default function ApplyPage() {
   const [idFile, setIdFile] = useState<File | null>(null)
   const [addressFile, setAddressFile] = useState<File | null>(null)
   const [bankFile, setBankFile] = useState<File | null>(null)
+
+  usePageSeo({
+    title: 'Apply for Financing | CLOBANS FINANCE',
+    description:
+      'Complete your online SME or personal financing application with CLOBANS FINANCE in five simple steps.',
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {

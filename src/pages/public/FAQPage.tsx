@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, HelpCircle, Mail, Phone, Search, X } from 'lucide-react'
 import { SEO } from '@/components/seo/SEO'
+import { usePageSeo } from '@/hooks/usePageSeo'
 import { brand } from '@/config/brand'
 import { supabase } from '@/lib/supabase'
 import { FAQAccordion } from '@/components/ui/FAQAccordion'
@@ -62,6 +63,12 @@ export default function FAQPage() {
     }, 4500)
     return () => clearInterval(timer)
   }, [])
+
+  usePageSeo({
+    title: 'FAQs | CLOBANS FINANCE',
+    description:
+      'Frequently asked questions about CLOBANS FINANCE loans, eligibility, repayment and the application process.',
+  })
 
   useEffect(() => {
     async function loadFaqs() {
